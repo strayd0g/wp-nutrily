@@ -96,3 +96,16 @@ document.querySelector('.open-optional-ingredients')?.addEventListener('click', 
   document.querySelector('#show-optional-ingredients')?.classList.toggle('hidden');
 });
 
+
+document.querySelector('.check-nutrition')?.addEventListener('click', (e: Event) => {
+  e.preventDefault();
+  console.log('test');
+  document.querySelector('#open-nutrition-modal')?.classList.toggle('hidden');
+});
+
+
+document.querySelector('.check-nutrition1')?.addEventListener('click', (e: Event) => {
+  e.preventDefault();
+  console.log('test');
+  document.querySelector('#open-nutrition-modal')?.classList.toggle('hidden');
+});

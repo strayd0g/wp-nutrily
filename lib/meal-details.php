@@ -157,33 +157,34 @@
               </div>
 
               <div class="mt-2">
-              <!-- https://www.fda.gov/food/food-labeling-nutrition/changes-nutrition-facts-label -->
-              <div class="p-1 border-2 text-white pl-2 pr-2 border-b bg-gray-800 border-gray-700 rounded-lg font-sans w-full mt-2">
-                  <div class="text-4xl font-extrabold leading-none">Nutrition Facts</div>
-                  <!-- <div class="leading-snug">8 servings per container</div>
-                  <div class="flex justify-between font-bold border-b-8 border-black">
-                      <div>Serving size</div><div>2/3 cup (55g)</div>
-                  </div>
-                  <div class="flex justify-between items-end font-extrabold">
-                      <div>
-                          <div class="font-bold">Amount per serving</div>
-                          <div class="text-4xl">Calories</div>
-                      </div>
-                      <div class="text-5xl">45</div>
-                  </div> -->
-                  <!-- <div class="border-t-4 border-white text-sm pb-1">
-                     <div class="text-right font-bold pt-1 pb-1">% Daily value*</div>
-                      <hr class="border-gray-500"/>
-                      <div class="flex justify-between">
-                          <div>
-                              <span class="font-bold">Energy</span>
-                          </div>
-                          <div class="font-bold" id="enerc">2000 kcal</div>
-                      </div>
-                  </div> -->
-                  <div class="pt-1 text-sm" id="nutritional-table"></div>
+                <button class="check-nutrition mt-2 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" type="button">
+                  Open Nutrition Facts
+                </button>
+
+                <div id="open-nutrition-modal" tabindex="-1" class="flex hidden fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full bg-gray-900 bg-opacity-80 fixed inset-0 z-40 justify-center">
+                    <div class="relative w-full h-full max-w-md md:h-auto">
+                        <div class="relative bg-white rounded-lg shadow">
+                            <button type="button" class="check-nutrition1 absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="popup-modal">
+                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                              <div class="p-6 text-center">
+                                  <div class="p-1 border-2 border-black font-sans w-full">
+                                    <div class="text-4xl font-extrabold leading-none">Nutrition Facts</div>
+                                    <div class="t-1 border-t-4 border-black text-sm pb-1"></div>
+                                    <div class="t-2 border-t-8 border-black pt-1 text-sm">
+                                        <div class="border-t-4 border-black flex leading-none text-xs pt-2 pb-1">
+                                            <div class="pr-1">*</div>
+                                            <div>The % Daily Value (DV) tells you how much a nutrient in a serving of food contributes to a daily diet. 2,000 calories a day is used for general nutrition advice.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
               </div>
-              </div>
+
 
             </div>
           </div>

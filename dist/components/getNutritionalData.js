@@ -12,57 +12,195 @@ export function getNutritionalValues(meal_id) {
         yield fetch(`/wp-json/nutrily/v1/user/meals/nutrition/${meal_id}`)
             .then((response) => response.json())
             .then((data) => {
-            getNutritionalData(data, "ENERC", "g");
-            getNutritionalData(data, "SUCS", "g");
-            getNutritionalData(data, "FAT", "g");
-            getNutritionalData(data, "FASAT", "g");
-            getNutritionalData(data, "FAMCIS", "g");
-            getNutritionalData(data, "FAPU", "g");
-            getNutritionalData(data, "CHOAVL", "g");
-            getNutritionalData(data, "SUGAR", "g");
-            getNutritionalData(data, "FIBC", "g");
-            getNutritionalData(data, "PROT", "g");
-            getNutritionalData(data, "CA", "g");
-            getNutritionalData(data, "FE", "g");
-            getNutritionalData(data, "K", "g");
-            getNutritionalData(data, "MG", "g");
-            getNutritionalData(data, "NA", "g");
-            getNutritionalData(data, "P", "g");
-            getNutritionalData(data, "ID", "g");
-            getNutritionalData(data, "SE", "g");
-            getNutritionalData(data, "ZN", "g");
-            getNutritionalData(data, "VITA", "g");
-            getNutritionalData(data, "VITD", "g");
-            getNutritionalData(data, "VITE", "g");
-            getNutritionalData(data, "VITK", "g");
-            getNutritionalData(data, "VITC", "g");
-            getNutritionalData(data, "THIA", "g");
-            getNutritionalData(data, "RIBF", "g");
-            getNutritionalData(data, "NIA", "g");
-            getNutritionalData(data, "VITB6", "g");
-            getNutritionalData(data, "FOL", "g");
-            getNutritionalData(data, "VITB12", "g");
-            getNutritionalData(data, "BIOT", "g");
-            getNutritionalData(data, "PANTAC", "g");
+            getNutritionalData(data);
         });
     });
 }
-function getNutritionalData(data, EUFDNAME, unit) {
-    function parseToDecimal(result) {
-        return parseFloat(result.replace(",", "."));
+function getNutritionalData(data) {
+    const nutritional_table_1 = document.querySelector('.t-1');
+    const nutritional_table_2 = document.querySelector('.t-2');
+    function parseResult(name, unit) {
+        if (name)
+            return (name.toFixed(2)).replace(".", ",") + `${unit}`;
+        return 0 + `${unit}`;
     }
-    const result = data.filter((playlist) => playlist.EUFDNAME === EUFDNAME);
-    console.log(result.length);
-    let d = 0;
-    for (let i = 0; i < result.length; i++) {
-        d += parseInt(result[i].qty) * parseToDecimal(result[i].BESTLOC) / 100;
-    }
-    const a = document.querySelector('#nutritional-table');
-    if (result.length !== 0) {
-        a.innerHTML += `<hr class="border-gray-500"/>
-      <div class="flex justify-between">
-          <div>${EUFDNAME}</div>
-          <div>${d.toFixed(2)}${unit}</div>
-      </div>`;
-    }
+    let html_1 = "";
+    let html_2 = "";
+    let result = data.reduce((c, v) => {
+        c[v.EUFDNAME] = (c[v.EUFDNAME] || 0) + parseFloat(v.qty) * parseFloat(v.BESTLOC) / 100;
+        return c;
+    }, {});
+    html_1 += `<div class="flex justify-between">
+  <div>
+    <span class="font-bold">Energy</span>
+  </div>
+  <div>${parseResult(result.ENERC, 'kcal')}</div>
+</div>
+<hr class="border-gray-500" />
+<div class="flex justify-between">
+  <div>
+    <span class="font-bold">Total Fat</span>
+  </div>
+  <div>${parseResult(result.FAT, 'g')}</div>
+</div>
+<hr class="border-gray-500" />
+<div class="flex justify-between">
+  <div>Saturated Fat Acid</div>
+  <div>${parseResult(result.FASAT, 'g')}</div>
+</div>
+<hr class="border-gray-500" />
+<div class="flex justify-between">
+  <div>Monounsatured fatty acids</div>
+  <div>${parseResult(result.FAMCIS, 'g')}</div>
+</div>
+<hr class="border-gray-500" />
+<div class="flex justify-between">
+  <div>Polyunsaturated fatty acids</div>
+  <div>${parseResult(result.FAPU, 'g')}</div>
+</div>
+<hr class="border-gray-500" />
+<div class="flex justify-between">
+  <div>
+    <span class="font-bold">Carbohydrates</span>
+  </div>
+  <div>${parseResult(result.CHOAVL, 'g')}</div>
+</div>
+<hr class="border-gray-500" />
+<div class="flex justify-between">
+  <div>Sugar</div>
+  <div>${parseResult(result.SUGAR, 'g')}</div>
+</div>
+<hr class="border-gray-500" />
+<div class="flex justify-between">
+  <div>Fiber</div>
+  <div>${parseResult(result.FIBC, 'g')}</div>
+</div>
+<hr class="border-gray-500" />
+<div class="flex justify-between">
+  <div>
+    <span class="font-bold">Protein</span>
+  </div>
+  <div>${parseResult(result.PROT, 'g')}</div>
+</div>
+<hr class="border-gray-500" />
+<div class="flex justify-between">
+  <div>&nbsp;</div>
+  <div class="font-bold">&nbsp;</div>
+</div>
+<hr class="border-gray-500" />
+<div class="flex justify-between">
+  <div>Calcium</div>
+  <div>${parseResult(result.CA, 'mg')}</div>
+</div>
+<hr class="border-gray-500" />
+<div class="flex justify-between">
+  <div>Iron</div>
+  <div>${parseResult(result.FE, 'mg')}</div>
+</div>
+<hr class="border-gray-500" />
+<div class="flex justify-between">
+  <div>Potassium</div>
+  <div>${parseResult(result.K, 'mg')}</div>
+</div>
+<hr class="border-gray-500" />
+<div class="flex justify-between">
+  <div>Magnesium</div>
+  <div>${parseResult(result.MG, 'mg')}</div>
+</div>
+<hr class="border-gray-500" />
+<div class="flex justify-between">
+  <div>Sodium</div>
+  <div>${parseResult(result.NA, 'g')}</div>
+</div>
+<hr class="border-gray-500" />
+<div class="flex justify-between">
+  <div>Phosphorus</div>
+  <div>${parseResult(result.P, 'mg')}</div>
+</div>
+<hr class="border-gray-500" />
+<div class="flex justify-between">
+  <div>&nbsp;</div>
+  <div class="font-bold">&nbsp;</div>
+</div>
+<hr class="border-gray-500" />
+<div class="flex justify-between">
+  <div>Iodine</div>
+  <div>${parseResult(result.ID, 'μg')}</div>
+</div>
+<hr class="border-gray-500" />
+<div class="flex justify-between">
+  <div>Selenium</div>
+  <div>${parseResult(result.SE, 'μg')}</div>
+</div>
+<hr class="border-gray-500" />
+<div class="flex justify-between">
+  <div>Zinc</div>
+  <div>${parseResult(result.ZN, 'mg')}</div>
+</div> `;
+    html_2 += `<div class="flex justify-between">
+<div>Vitamin A</div>
+<div>${parseResult(result.VITA, 'μg')}</div>
+</div>
+<hr class="border-gray-500"/>
+<div class="flex justify-between">
+<div>Vitamin D</div>
+<div>${parseResult(result.VITD, 'μg')}</div>
+</div>
+<hr class="border-gray-500"/>
+<div class="flex justify-between">
+<div>Vitamin E</div>
+<div>${parseResult(result.VITE, 'mg')}</div>
+</div>
+<hr class="border-gray-500"/>
+<div class="flex justify-between">
+<div>Vitamin K</div>
+<div>${parseResult(result.VITK, 'mμg')}</div>
+</div>
+<hr class="border-gray-500"/>
+<div class="flex justify-between">
+<div>Vitamin C</div>
+<div>${parseResult(result.VITC, 'mg')}</div>
+</div>
+<hr class="border-gray-500"/>
+<div class="flex justify-between">
+<div>Thiamine</div>
+<div>${parseResult(result.THIA, 'mg')}</div>
+</div>
+<hr class="border-gray-500"/>
+<div class="flex justify-between">
+<div>Riboflavin</div>
+<div>${parseResult(result.RIBF, 'mg')}</div>
+</div>
+<hr class="border-gray-500"/>
+<div class="flex justify-between">
+<div>Niacin</div>
+<div>${parseResult(result.NIA, 'mg')}</div>
+</div>
+<hr class="border-gray-500"/>
+<div class="flex justify-between">
+<div>Vitamin B6</div>
+<div>${parseResult(result.VITB6, 'mg')}</div>
+</div>
+<hr class="border-gray-500"/>
+<div class="flex justify-between">
+<div>Folate</div>
+<div>${parseResult(result.FOL, 'μg')}</div>
+</div>
+<hr class="border-gray-500"/>
+<div class="flex justify-between">
+<div>Vitamin B12</div>
+<div>${parseResult(result.VITB12, 'μg')}</div>
+</div>
+<hr class="border-gray-500"/>
+<div class="flex justify-between">
+<div>Biotin</div>
+<div>${parseResult(result.BIOT, 'μg')}</div>
+</div>
+<hr class="border-gray-500"/>
+<div class="flex justify-between">
+<div>Pantothenic Acid</div>
+<div>${parseResult(result.PANTAC, 'mg')}</div>
+</div>`;
+    nutritional_table_1.innerHTML = html_1;
+    nutritional_table_2.innerHTML = html_2;
 }

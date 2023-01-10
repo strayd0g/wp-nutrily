@@ -153,9 +153,9 @@ function get_meal($id_or_name) {
 
 function get_nutritional_value($meal_id) {
   global $wpdb;
-  $data = $wpdb->get_results("SELECT i_data.meal_id, i_data.odid, i_data.qty, c_value.EUFDNAME, c_value.BESTLOC
-  FROM vegan_ingredient_data AS i_data
-  INNER JOIN vegan_component_value as c_value ON i_data.odid=c_value.ODID 
+  $data = $wpdb->get_results("SELECT i_data.meal_id, i_data.odid, i_data.qty, c_value.EUFDNAME, name.DESCRIPT, cast(replace(c_value.BESTLOC, ',', '.') as decimal(18,2)) as BESTLOC FROM vegan_ingredient_data AS i_data 
+  INNER JOIN vegan_component_value as c_value ON i_data.odid=c_value.ODID
+  INNER JOIN eufdname_de as name ON c_value.EUFDNAME = name.SCODE
   WHERE c_value.BESTLOC > '0' AND i_data.meal_id = '$meal_id'");
   return $data;
 }

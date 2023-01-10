@@ -1,4 +1,4 @@
-var _a, _b;
+var _a, _b, _c, _d;
 import { getFoodResult } from "./classes/showFoodResults.js";
 import { createTabData } from "./classes/createTabsData.js";
 import { getAllDAta } from "./classes/getAllData.js";
@@ -76,4 +76,16 @@ submit_data === null || submit_data === void 0 ? void 0 : submit_data.addEventLi
     var _a;
     e.preventDefault();
     (_a = document.querySelector('#show-optional-ingredients')) === null || _a === void 0 ? void 0 : _a.classList.toggle('hidden');
+});
+(_c = document.querySelector('.check-nutrition')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', (e) => {
+    var _a;
+    e.preventDefault();
+    console.log('test');
+    (_a = document.querySelector('#open-nutrition-modal')) === null || _a === void 0 ? void 0 : _a.classList.toggle('hidden');
+});
+(_d = document.querySelector('.check-nutrition1')) === null || _d === void 0 ? void 0 : _d.addEventListener('click', (e) => {
+    var _a;
+    e.preventDefault();
+    console.log('test');
+    (_a = document.querySelector('#open-nutrition-modal')) === null || _a === void 0 ? void 0 : _a.classList.toggle('hidden');
 });
